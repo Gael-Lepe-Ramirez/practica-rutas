@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Contacto;
 
 class ContactoController extends Controller
 {
@@ -19,6 +20,19 @@ class ContactoController extends Controller
             'mensaje' => ['required', 'min:10'],
         ]);
 
-        dd($request->all());
+        $contacto = new Contacto();
+        $contacto->nombre = $request->nombre; 
+        $contacto->correo = $request->correo;
+        $contacto->mensaje = $request->mensaje;
+        $contacto->save();
+
+        return redirect()->back(); 
+    }
+
+    public function listaContactos()
+    {
+        $contactos = Contacto::all();
+        
+        return view('lista-contactos', compact('contactos'));
     }
 }
