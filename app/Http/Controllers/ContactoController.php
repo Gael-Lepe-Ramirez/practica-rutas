@@ -2,37 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Contacto;
+use Illuminate\Http\Request;
 
 class ContactoController extends Controller
 {
-    public function formulario_contacto()
+    public function index()
     {
-        return view('formulario-contacto');
+        return view('contactos.contacto-index')
+            ->with([
+                'contactos' => Contacto::all()
+            ]);
     }
 
-    public function recibe_formulario(Request $request)
+    public function create()
+    {
+        return view('contactos.contacto-create');
+    }
+
+    public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|min:5',
+            'nombre' => 'required|min:3',
             'correo' => 'required|email',
-            'mensaje' => ['required', 'min:10'],
+            'mensaje' => 'required|min:10'
         ]);
 
         $contacto = new Contacto();
-        $contacto->nombre = $request->nombre; 
+        $contacto->nombre = $request->nombre;
         $contacto->correo = $request->correo;
         $contacto->mensaje = $request->mensaje;
         $contacto->save();
 
-        return redirect()->back(); 
-    }
-
-    public function listaContactos()
-    {
-        $contactos = Contacto::all();
-        
-        return view('lista-contactos', compact('contactos'));
+        return redirect()->route('contactos.index');
     }
 }

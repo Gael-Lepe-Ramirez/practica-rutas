@@ -16,7 +16,7 @@
 <body>
     <h1>Formulario de Contacto</h1>
     
-    <form action="/recibe-formulario" method="POST">
+    <form action="/contactos" method="POST">
         @csrf
         
         <table border="0">
