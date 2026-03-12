@@ -4,14 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Lista de Contactos</title>
+    <title>Document</title>
 </head>
 <body>
-    <h1>Lista de Contactos</h1>
+    <h1>Lista Contactos</h1>
+
+    <p>
+        <a href="{{ route('contactos.create') }}">Enviar nuevo mensaje de contacto</a>
+    </p>
+
     <ul>
-        @foreach($contactos as $contacto)
+        @foreach ($contactos as $contacto)
             <li>
-                {{ $contacto->nombre }} - {{ $contacto->correo }}
+                <a href="{{ route('contactos.show', $contacto) }}">{{ $contacto->nombre }}</a> - {{ $contacto->correo }}
             </li>
         @endforeach
     </ul>

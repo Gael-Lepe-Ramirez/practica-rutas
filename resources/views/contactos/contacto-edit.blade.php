@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto</title>
+    <title>Editar Contacto</title>
     <style>
         input[type="text"],
         input[type="email"],
@@ -15,20 +15,19 @@
     </style>
 </head>
 <body>
-    <h1>Formulario de Contacto</h1>
+    <h1>Editar Formulario de Contacto</h1>
 
     <p>
         <a href="{{ route('contactos.index') }}">Volver a la lista de contactos</a>
     </p>
 
-    <form action="/contactos" method="POST">
+    <form action="{{ route('contactos.update', $contacto) }}" method="POST">
         @csrf
-        
-        <table border="0">
+        @method('PATCH') <table border="0">
             <tr>
                 <td><label for="nombre">Nombre:</label></td>
                 <td>
-                    <input type="text" id="nombre" name="nombre" value="{{ old('nombre') }}">
+                    <input type="text" id="nombre" name="nombre" value="{{ old('nombre') ?? $contacto->nombre }}">
                     @error('nombre')
                         <div style="color: red; font-size: 0.8em;">{{ $message }}</div>
                     @enderror
@@ -37,7 +36,7 @@
             <tr>
                 <td><label for="correo">Correo:</label></td>
                 <td>
-                    <input type="email" id="correo" name="correo" value="{{ old('correo') }}">
+                    <input type="email" id="correo" name="correo" value="{{ old('correo') ?? $contacto->correo }}">
                     @error('correo')
                         <div style="color: red; font-size: 0.8em;">{{ $message }}</div>
                     @enderror
@@ -46,7 +45,7 @@
             <tr>
                 <td><label for="mensaje">Mensaje:</label></td>
                 <td>
-                    <textarea id="mensaje" name="mensaje" rows="4">{{ old('mensaje') }}</textarea>
+                    <textarea id="mensaje" name="mensaje" rows="4">{{ old('mensaje') ?? $contacto->mensaje }}</textarea>
                     @error('mensaje')
                         <div style="color: red; font-size: 0.8em;">{{ $message }}</div>
                     @enderror
@@ -55,7 +54,7 @@
             <tr>
                 <td></td>
                 <td>
-                    <input type="submit" value="Enviar">
+                    <input type="submit" value="Actualizar"> 
                 </td>
             </tr>
         </table>
